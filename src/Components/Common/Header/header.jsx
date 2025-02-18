@@ -2,6 +2,7 @@ import React from 'react';
 import './style.css';
 import AnchorTemporaryDrawer from './Mob-drawer';
 import Button from '../Butoon/button';
+import { Link } from 'react-router-dom';
 
 
 const header = () => {
@@ -12,13 +13,13 @@ const header = () => {
         <a href="/">
           <p className='link'>Home</p>
         </a>
-        <a href="/">
+        <a href="/compare">
           <p className='link'>Compare</p>
         </a>
-        <a href="/">
+        <a href="/watchlist">
           <p className='link'>Watchlist</p>
         </a>
-        <a href="#">
+        <a href="/dashboard">
           <Button
             text={"Dashboard"}
           />
