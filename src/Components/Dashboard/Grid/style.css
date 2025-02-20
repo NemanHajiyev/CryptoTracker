@@ -1,0 +1,145 @@
+.grid-container,
+.grid-container2 {
+    width: 300px;
+    height: 300px;
+    padding: 2rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    background-color: var(--darkgrey);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.grid-container:hover,
+.grid-container2:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 20px rgba(255, 0, 0, 0.4);
+}
+
+.grid-container:hover {
+    border: 1px solid var(--red);
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), var(--darkgrey));
+}
+
+.grid-container2:hover {
+    border: 1px solid var(--green);
+    background: linear-gradient(135deg, rgba(0, 255, 0, 0.2), var(--darkgrey));
+    box-shadow: 0px 8px 20px rgba(0, 255, 0, 0.4);
+}
+
+.grid-container::before,
+.grid-container2::before {
+    content: "_______________";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: -50%;
+    left: -50%;
+    background: rgba(255, 255, 255, 0.05);
+    transform: rotate(45deg);
+    transition: all 0.4s ease-in-out;
+}
+
+.grid-container:hover::before,
+.grid-container2:hover::before {
+    top: 100%;
+    left: 100%;
+}
+
+/* //// */
+
+.logo-div {
+    align-items: center;
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    width: 100%;
+}
+
+.logo-img {
+    height: 3rem;
+    width: 3rem;
+}
+
+.symbol {
+    font-size: 1.2rem;
+    color: var(--white);
+}
+
+.coin-name {
+    color: var(--grey);
+    font-size: 0.8rem;
+}
+
+.price-percent {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+}
+
+/*  */
+
+.change_percent,
+.change_percent2 {
+    border: 2px solid var(--green);
+    border-radius: 2rem;
+    font-weight: 600;
+    margin: 1.5rem 0;
+    padding: .5rem 1rem;
+}
+
+.change_percent2 {
+    border: 2px solid var(--red);
+}
+
+/*  */
+
+/*  */
+.trending-icon,
+.trending-icon2 {
+    border: 2px solid var(--green);
+    border-radius: 50%;
+    color: var(--green);
+    font-size: 2.5rem !important;
+    padding: .35rem;
+}
+
+.trending-icon2 {
+    border: 2px solid var(--red);
+    color: var(--red);
+}
+
+/*  */
+
+/*  */
+.price,
+.price2 {
+    color: var(--green);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 0;
+}
+
+.price2 {
+    color: var(--red);
+}
+
+/*  */
+.price-info {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.name {
+    font-size: .8rem;
+    margin-top: .2rem !important;
+    opacity: .8;
+}

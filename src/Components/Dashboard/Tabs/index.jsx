@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
+import GridCoin from '../Grid/GridCoin';
+import ListCoin from '../List/ListCoin';
+//
+import './style.css'
 
 export default function LabTabs() {
-    const [value, setValue] = useState('1');
 
+    const [coins, setCoins] = useState([]);
+
+    //Tab context//
+    const [value, setValue] = useState('grid');
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -20,6 +27,27 @@ export default function LabTabs() {
         fontWeight: 600,
         textTransform: "capitalize",
     };
+    //Tab context//
+
+
+    //coins Api 
+    const getData = async () => {
+        try {
+            const response = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false");
+            const data = await response.json();
+            setCoins(data);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await getData();
+        };
+        fetchData();
+    }, []);
+    //coins Api 
 
     return (
         <Box >
@@ -30,8 +58,29 @@ export default function LabTabs() {
                         <Tab label="List" value="list" sx={style} />
                     </TabList>
                 </Box>
-                <TabPanel value="grid" sx={style}>Grid</TabPanel>
-                <TabPanel value="list" sx={style}>List</TabPanel>
+
+                <TabPanel value="grid" sx={style}>
+                    <div className='grid-coin' >
+
+                        {
+                            coins?.slice(0, 10).map((coin, i) => (
+                                <GridCoin key={i} coin={coin} />
+                            ))
+                        }
+                    </div>
+                </TabPanel>
+
+                <TabPanel value="list" sx={style}>
+                    <div className='list-coin' >
+
+                        {
+                            coins?.slice(0, 10).map((coin, i) => (
+                                <ListCoin key={i} coin={coin} />
+                            ))
+                        }
+                    </div>
+                </TabPanel>
+
             </TabContext>
         </Box>
     );
