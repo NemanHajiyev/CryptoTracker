@@ -71,14 +71,7 @@ export default function LabTabs() {
                 </TabPanel>
 
                 <TabPanel value="list" sx={style}>
-                    <div className='list-coin' >
-
-                        {
-                            coins?.slice(0, 10).map((coin, i) => (
-                                <ListCoin key={i} coin={coin} />
-                            ))
-                        }
-                    </div>
+                    <ListCoin coins={coins} />
                 </TabPanel>
 
             </TabContext>

@@ -3,7 +3,6 @@ import './style.css';
 import { HiTrendingDown, HiTrendingUp } from 'react-icons/hi';
 
 const GridCoin = ({ coin }) => {
-    console.log(coin);
     const gridContainer = coin.market_cap_change_percentage_24h < 0 ? "grid-container" : "grid-container2";
 
     return (
@@ -19,7 +18,7 @@ const GridCoin = ({ coin }) => {
                 <>
                     <div className='price-percent'>
                         <div className='change_percent2'>
-                            <p style={{ color: "var(--red)" }}>{(coin.market_cap_change_percentage_24h).toFixed(2)}%</p>
+                            <p className='change-percent-price2'>{(coin.market_cap_change_percentage_24h).toFixed(2)}%</p>
                         </div>
                         <HiTrendingDown className='trending-icon2' />
                     </div>
@@ -33,7 +32,7 @@ const GridCoin = ({ coin }) => {
                 <>
                     <div className='price-percent'>
                         <div className='change_percent'>
-                            <p style={{ color: "var(--green)" }}>+{(coin.market_cap_change_percentage_24h).toFixed(2)}%</p>
+                            <p className='change-percent-price'>+{(coin.market_cap_change_percentage_24h).toFixed(2)}%</p>
                         </div>
                         <HiTrendingUp className='trending-icon' />
                     </div>
