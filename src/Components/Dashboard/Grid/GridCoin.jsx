@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css';
 import { HiTrendingDown, HiTrendingUp } from 'react-icons/hi';
 
-const GridCoin = ({ coin }) => {
+const GridCoin = ({ coin, inputValue }) => {
     const gridContainer = coin.market_cap_change_percentage_24h < 0 ? "grid-container" : "grid-container2";
 
     return (

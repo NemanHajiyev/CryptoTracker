@@ -8,10 +8,23 @@ import GridCoin from '../Grid/GridCoin';
 import ListCoin from '../List/ListCoin';
 //
 import './style.css'
+import NotFound from '../../../NotFound404/404';
+//
+import ReactPaginate from 'react-paginate';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
-export default function LabTabs() {
 
+export default function LabTabs({ inputValue }) {
     const [coins, setCoins] = useState([]);
+
+    //search coin
+    const searched = coins.filter((item) => (
+        item.name.toLowerCase().includes(inputValue.trim().toLowerCase()) ||
+        item.symbol.toLowerCase().includes(inputValue.trim().toLowerCase())
+    ))
+    //search coin
+
 
     //Tab context//
     const [value, setValue] = useState('grid');
@@ -29,8 +42,7 @@ export default function LabTabs() {
     };
     //Tab context//
 
-
-    //coins Api 
+    //coins Api// 
     const getData = async () => {
         try {
             const response = await fetch("https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false");
@@ -49,6 +61,19 @@ export default function LabTabs() {
     }, []);
     //coins Api 
 
+    //Paginate//
+    const [page, setPage] = useState(1);
+    const itemsPerPage = 8;
+    const handlePageChange = (event, value) => {
+        setPage(value);
+    };
+    const startOffset = (page - 1) * itemsPerPage;
+    const endOffset = startOffset + itemsPerPage;
+    const currentItems = searched.slice(startOffset, endOffset);
+    const pageCount = Math.ceil(searched.length / itemsPerPage);
+
+    //Paginate//
+
     return (
         <Box >
             <TabContext value={value}>
@@ -60,20 +85,35 @@ export default function LabTabs() {
                 </Box>
 
                 <TabPanel value="grid" sx={style}>
-                    <div className='grid-coin' >
-
-                        {
-                            coins?.slice(0, 10).map((coin, i) => (
+                    <div className='grid-coin'>
+                        {currentItems.length > 0 ? (
+                            currentItems.map((coin, i) => (
                                 <GridCoin key={i} coin={coin} />
                             ))
-                        }
+                        ) : (
+                            <NotFound />
+                        )}
+                        <Stack spacing={2} alignItems="center">
+                            <Pagination
+                                size='large'
+                                count={pageCount}
+                                page={page}
+                                onChange={handlePageChange}
+                                color="white"
+                            />
+                        </Stack>
                     </div>
                 </TabPanel>
 
                 <TabPanel value="list" sx={style}>
-                    <ListCoin coins={coins} />
+                    {
+                        searched.length > 0 ? (
+                            <ListCoin coins={searched} />
+                        ) : (
+                            <NotFound />
+                        )
+                    }
                 </TabPanel>
-
             </TabContext>
         </Box>
     );
