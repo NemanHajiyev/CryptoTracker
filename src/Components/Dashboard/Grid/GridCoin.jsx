@@ -32,7 +32,7 @@ const GridCoin = ({ coin, inputValue }) => {
                 <>
                     <div className='price-percent'>
                         <div className='change_percent'>
-                            <p className='change-percent-price'>+{(coin.market_cap_change_percentage_24h).toFixed(2)}%</p>
+                            <p className='change-percent-price'>{(coin.market_cap_change_percentage_24h).toFixed(2)}%</p>
                         </div>
                         <HiTrendingUp className='trending-icon' />
                     </div>
