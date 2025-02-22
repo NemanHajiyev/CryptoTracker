@@ -13,6 +13,7 @@ import NotFound from '../../../NotFound404/404';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import Loading from '../../Loader/Loading';
+import ToTop from '../../BackToTop/ToTop';
 
 
 export default function LabTabs({ inputValue }) {
@@ -52,13 +53,15 @@ export default function LabTabs({ inputValue }) {
         } catch (error) {
             console.error(error);
         } finally {
-            setIsLoading(false);
+            setTimeout(() => setIsLoading(false), 1200);
         }
     };
 
     useEffect(() => {
-        setIsLoading(false);
-        getData();
+        const fetchData = async () => {
+            await getData();
+        }
+        fetchData()
     }, []);
     //coins Api 
 
@@ -78,7 +81,7 @@ export default function LabTabs({ inputValue }) {
     return (
         <>
             {isLoading ? (<Loading />) : (
-                <Box >
+                <Box>
                     <TabContext value={value}>
                         <Box>
                             <TabList onChange={handleChange} variant='fullWidth'>
@@ -123,6 +126,7 @@ export default function LabTabs({ inputValue }) {
                     </TabContext>
                 </Box>
             )}
+            <ToTop />
 
         </>
     );

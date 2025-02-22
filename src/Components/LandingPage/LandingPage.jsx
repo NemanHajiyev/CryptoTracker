@@ -4,6 +4,7 @@ import './style.css';
 import iphone from '../../Assets/iphone.png';
 import gradient from '../../Assets/gradient.png';
 import { motion } from "framer-motion";
+import ToTop from '../BackToTop/ToTop';
 
 
 const LandingPage = () => {

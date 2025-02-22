@@ -1,0 +1,21 @@
+.myBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    background-color: var(--blue);
+    color: var(--white);
+    cursor: pointer;
+    padding: 0.8rem;
+    border-radius: 50%;
+    font-size: 1.2rem;
+}
+
+.myBtn:hover {
+    background-color: var(--darkgrey);
+}
