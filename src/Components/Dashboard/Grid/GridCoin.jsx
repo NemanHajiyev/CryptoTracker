@@ -1,12 +1,16 @@
 import React from 'react';
 import './style.css';
 import { HiTrendingDown, HiTrendingUp } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 
 const GridCoin = ({ coin }) => {
     const gridContainer = coin.market_cap_change_percentage_24h < 0 ? "grid-container" : "grid-container2";
+    const navigate = useNavigate()
 
     return (
-        <div className={gridContainer}>
+        <div onClick={() => navigate(`/coin/${coin.id.toLowerCase()}`)}
+
+            className={gridContainer}>
             <div className='logo-div'>
                 <img src={coin.image} className='logo-img' />
                 <div className='coin-info'>

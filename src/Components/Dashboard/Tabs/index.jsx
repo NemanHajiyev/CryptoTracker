@@ -53,7 +53,7 @@ export default function LabTabs({ inputValue }) {
         } catch (error) {
             console.error(error);
         } finally {
-            setTimeout(() => setIsLoading(false), 1200);
+            setTimeout(() => setIsLoading(false), 1000);
         }
     };
 
@@ -127,7 +127,6 @@ export default function LabTabs({ inputValue }) {
                 </Box>
             )}
             <ToTop />
-
         </>
     );
 }

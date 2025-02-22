@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ComparePage from './Pages/ComparePage';
 import HomePage from './Pages/HomePage';
 import DashboardPage from './Pages/DashboardPage';
+import Coins from './Components/Coin/Coins';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='/compare' element={<ComparePage />} />
           <Route path='/dashboard' element={<DashboardPage />} />
+          <Route path='/coin/:id' element={<Coins />} />
         </Routes>
       </BrowserRouter>
       {/* <Footer /> */}
