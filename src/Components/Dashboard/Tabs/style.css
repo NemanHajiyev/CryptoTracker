@@ -1,7 +1,9 @@
-.grid-coin {
+.grid-coin,
+.list-coin {
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     gap: 3rem;
     padding: 1rem;

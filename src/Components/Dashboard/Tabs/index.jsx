@@ -10,13 +10,14 @@ import ListCoin from '../List/ListCoin';
 import './style.css'
 import NotFound from '../../../NotFound404/404';
 //
-import ReactPaginate from 'react-paginate';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import Loading from '../../Loader/Loading';
 
 
 export default function LabTabs({ inputValue }) {
     const [coins, setCoins] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     //search coin
     const searched = coins.filter((item) => (
@@ -50,14 +51,14 @@ export default function LabTabs({ inputValue }) {
             setCoins(data);
         } catch (error) {
             console.error(error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
     useEffect(() => {
-        const fetchData = async () => {
-            await getData();
-        };
-        fetchData();
+        setIsLoading(false);
+        getData();
     }, []);
     //coins Api 
 
@@ -75,47 +76,55 @@ export default function LabTabs({ inputValue }) {
     //Paginate//
 
     return (
-        <Box >
-            <TabContext value={value}>
-                <Box>
-                    <TabList onChange={handleChange} variant='fullWidth'>
-                        <Tab label="Grid" value="grid" sx={style} />
-                        <Tab label="List" value="list" sx={style} />
-                    </TabList>
+        <>
+            {isLoading ? (<Loading />) : (
+                <Box >
+                    <TabContext value={value}>
+                        <Box>
+                            <TabList onChange={handleChange} variant='fullWidth'>
+                                <Tab label="Grid" value="grid" sx={style} />
+                                <Tab label="List" value="list" sx={style} />
+                            </TabList>
+                        </Box>
+
+                        <TabPanel value="grid" sx={style}>
+                            <div className='grid-coin'>
+                                {currentItems.length > 0 ? (
+                                    currentItems.map((coin, i) => (
+                                        <GridCoin key={i} coin={coin} />
+                                    ))
+                                ) : (
+                                    <NotFound />
+                                )}
+
+                            </div>
+                            <Stack spacing={2} alignItems="center" justifyContent="center">
+                                <Pagination
+                                    size='large'
+                                    count={pageCount}
+                                    page={page}
+                                    onChange={handlePageChange}
+                                    color="white"
+                                />
+                            </Stack>
+                        </TabPanel>
+
+                        <TabPanel value="list" sx={style}>
+                            <div className='list-coin'>
+                                {
+                                    searched.length > 0 ? (
+                                        <ListCoin coins={searched} />
+                                    ) : (
+                                        <NotFound />
+                                    )
+                                }
+                            </div>
+                        </TabPanel>
+                    </TabContext>
                 </Box>
+            )}
 
-                <TabPanel value="grid" sx={style}>
-                    <div className='grid-coin'>
-                        {currentItems.length > 0 ? (
-                            currentItems.map((coin, i) => (
-                                <GridCoin key={i} coin={coin} />
-                            ))
-                        ) : (
-                            <NotFound />
-                        )}
-                        <Stack spacing={2} alignItems="center">
-                            <Pagination
-                                size='large'
-                                count={pageCount}
-                                page={page}
-                                onChange={handlePageChange}
-                                color="white"
-                            />
-                        </Stack>
-                    </div>
-                </TabPanel>
-
-                <TabPanel value="list" sx={style}>
-                    {
-                        searched.length > 0 ? (
-                            <ListCoin coins={searched} />
-                        ) : (
-                            <NotFound />
-                        )
-                    }
-                </TabPanel>
-            </TabContext>
-        </Box>
+        </>
     );
 }
 
