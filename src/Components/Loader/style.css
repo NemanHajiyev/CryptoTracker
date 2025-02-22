@@ -7,5 +7,16 @@
     background-color: var(--black);
     position: fixed;
     z-index: 1000;
+    margin: 0 auto;
     top: 10%;
+}
+
+.chart-container {
+    width: 100%;
+    max-width: 85rem;
+    margin: 1rem auto;
+    padding: 10px;
+    background: var(--darkgrey);
+    border-radius: 10px;
+    /* text-align: center; */
 }

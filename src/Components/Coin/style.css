@@ -2,6 +2,10 @@
     padding: 1.5rem 3rem;
 }
 
+.chart-div {
+    margin: 2rem 0;
+}
+
 .detail-coin {
     display: flex;
     justify-content: space-between;
