@@ -71,7 +71,7 @@ const CompareComponent = () => {
         <div className="compare-container">
             {isLoading ? <Loading /> : (
                 <div>
-                    <h1 style={{ textAlign: "center", color: "var(--blue)" }}>Coin Comparison</h1>
+                    <h1 style={{ textAlign: "center", color: "var(--blue)" }}>Compare Cryptos</h1>
 
                     <div className="selection-div">
                         <select className="select" value={coinOne} onChange={(e) => setCoinOne(e.target.value)}>

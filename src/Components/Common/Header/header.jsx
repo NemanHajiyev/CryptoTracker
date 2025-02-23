@@ -2,8 +2,6 @@ import React from 'react';
 import './style.css';
 import AnchorTemporaryDrawer from './Mob-drawer';
 import Button from '../Butoon/button';
-import { FaSearch } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 
 
 const header = () => {
@@ -17,9 +15,6 @@ const header = () => {
           </a>
           <a href="/compare">
             <p className='link'>Compare</p>
-          </a>
-          <a href="/watchlist">
-            <p className='link'>Watchlist</p>
           </a>
           <a href="/dashboard">
             <Button
