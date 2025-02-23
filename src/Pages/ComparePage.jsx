@@ -1,11 +1,113 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import { getAllCoins } from '../Functions/getAllCoins';
+import Loading from '../Components/Loader/Loading';
+import '../Components/Loader/style.css'
+//
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
+import { Line } from "react-chartjs-2";
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const ComparePage = () => {
+const CompareComponent = () => {
+    const [coins, setCoins] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    const [coinOne, setCoinOne] = useState("bitcoin");
+    const [coinTwo, setCoinTwo] = useState("ethereum");
+
+    const [days, setDays] = useState(30);
+    const [metric, setMetric] = useState("total_volumes");
+
+    const [coinOneData, setCoinOneData] = useState(null);
+    const [coinTwoData, setCoinTwoData] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            await getAllCoins(setCoins);
+            setIsLoading(false);
+        };
+        fetchData();
+    }, []);
+
+    useEffect(() => {
+        const fetchCoinData = async (coinId, setCoinData) => {
+            try {
+                const res = await fetch(`https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${days}`);
+                const data = await res.json();
+                setCoinData(data);
+            } catch (error) {
+                console.error("API error:", error);
+            }
+        };
+
+        fetchCoinData(coinOne, setCoinOneData);
+        fetchCoinData(coinTwo, setCoinTwoData);
+    }, [coinOne, coinTwo, days]);
+
+    const chartData = {
+        labels: coinOneData?.[metric]?.map(price => new Date(price[0]).toLocaleDateString()) || [],
+        datasets: [
+            {
+                label: `${coinOne} ${metric.replace("_", " ")}`,
+                data: coinOneData?.[metric]?.map(price => price[1]) || [],
+                borderColor: "rgba(75,192,192,1)",
+                backgroundColor: "rgba(192, 75, 75, 0.2)",
+                borderWidth: 2,
+                pointRadius: 0,
+                tension: 0.1
+            },
+            {
+                label: `${coinTwo} ${metric.replace("_", " ")}`,
+                data: coinTwoData?.[metric]?.map(price => price[1]) || [],
+                borderColor: "rgba(192,75,192,1)",
+                backgroundColor: "rgba(75, 192, 192, 0.2)",
+                borderWidth: 2,
+                pointRadius: 0,
+                tension: 0.1
+            }
+        ]
+    };
+
     return (
-        <div>
-            Compare
-        </div>
-    )
-}
+        <div className="compare-container">
+            {isLoading ? <Loading /> : (
+                <div>
+                    <h1 style={{ textAlign: "center", color: "var(--blue)" }}>Coin Comparison</h1>
 
-export default ComparePage
+                    <div className="selection-div">
+                        <select className="select" value={coinOne} onChange={(e) => setCoinOne(e.target.value)}>
+                            {coins.map((coin) => (
+                                <option key={coin.id} value={coin.id}>{coin.name}</option>
+                            ))}
+                        </select>
+                        <select className="select" value={coinTwo} onChange={(e) => setCoinTwo(e.target.value)}>
+                            {coins.map((coin) => (
+                                <option key={coin.id} value={coin.id}>{coin.name}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="selection-div">
+                        <select className="select" value={days} onChange={(e) => setDays(Number(e.target.value))}>
+                            <option value="7">7 Day</option>
+                            <option value="30">30 Day</option>
+                            <option value="60">60 Day</option>
+                            <option value="90">90 Day</option>
+                        </select>
+
+                        <select className="select" value={metric} onChange={(e) => setMetric(e.target.value)}>
+                            <option value="prices">Price</option>
+                            <option value="market_caps">Market Cap</option>
+                            <option value="total_volumes">Total Volume</option>
+                        </select>
+                    </div>
+                    {coinOneData && coinTwoData ? (
+                        <Line data={chartData} />
+                    ) : (
+                        <Loading />
+                    )}
+                </div>
+            )}
+        </div>
+    );
+};
+
+export default CompareComponent;

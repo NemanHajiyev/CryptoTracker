@@ -2,13 +2,14 @@ import React from 'react';
 import './style.css';
 import { HiTrendingDown, HiTrendingUp } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
+import { FaStar } from 'react-icons/fa';
 
 const GridCoin = ({ coin }) => {
     const gridContainer = coin.market_cap_change_percentage_24h < 0 ? "grid-container" : "grid-container2";
     const navigate = useNavigate()
 
     return (
-        <div onClick={() => navigate(`/coin/${coin.id.toLowerCase()}`)}
+        <div
 
             className={gridContainer}>
             <div className='logo-div'>
@@ -16,6 +17,9 @@ const GridCoin = ({ coin }) => {
                 <div className='coin-info'>
                     <p className='symbol'>{coin.symbol.toUpperCase()}-USD</p>
                     <p className='coin-name'>{coin.name}</p>
+                </div>
+                <div>
+                    <FaStar onClick={() => navigate('/watchlist')} size={30} />
                 </div>
             </div>
             {coin.market_cap_change_percentage_24h < 0 ? (

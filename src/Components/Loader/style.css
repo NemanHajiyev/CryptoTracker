@@ -14,7 +14,7 @@
 
 .chart-container {
     width: 100%;
-    max-width: 85rem;
+    max-width: 87rem;
     margin: 1rem auto;
     padding: 10px;
     background: var(--darkgrey);
@@ -43,4 +43,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.compare-container {
+    padding: 1.5rem 3rem;
+}
+
+
+
+@media (max-width: 768px) {
+    .selection-div {
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    .select {
+        margin: 0.5rem 0;
+        padding: 0.5rem;
+        width: 100%;
+    }
+
+
 }
