@@ -57,6 +57,48 @@
     width: 350px;
 }
 
+
+/* //Share// */
+.social-icons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2rem;
+}
+
+.social-icons a {
+    color: var(--blue);
+    transition: color 0.3s;
+}
+
+.social-icons a:hover {
+    color: var(--red);
+}
+
+.share-link {
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.share-link input {
+    outline: none;
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.share-link button {
+    margin-left: 10px;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* //Share// */
+
+
+
 @media only screen and (max-width: 1350px) {
 
     .heading1,

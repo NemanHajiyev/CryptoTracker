@@ -6,6 +6,8 @@ import '../Components/Loader/style.css'
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 import { Line } from "react-chartjs-2";
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
+//
+import { motion } from "framer-motion";
 
 const CompareComponent = () => {
     const [coins, setCoins] = useState([]);
@@ -68,12 +70,35 @@ const CompareComponent = () => {
     };
 
     return (
-        <div className="compare-container">
-            {isLoading ? <Loading /> : (
-                <div>
-                    <h1 style={{ textAlign: "center", color: "var(--blue)" }}>Compare Cryptos</h1>
 
-                    <div className="selection-div">
+        <motion.div
+            className="compare-container"
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+        >
+            {isLoading ? <Loading /> : (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1 }}
+                >
+                    <motion.h1
+                        style={{ textAlign: "center", color: "var(--blue)" }}
+                        initial={{ opacity: 0, y: -30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        whileHover={{ textShadow: "0px 0px 10px rgba(0, 174, 255, 0.8)" }}
+                    >
+                        Compare Cryptos
+                    </motion.h1>
+
+                    <motion.div
+                        className="selection-div"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                    >
                         <select className="select" value={coinOne} onChange={(e) => setCoinOne(e.target.value)}>
                             {coins.map((coin) => (
                                 <option key={coin.id} value={coin.id}>{coin.name}</option>
@@ -84,8 +109,14 @@ const CompareComponent = () => {
                                 <option key={coin.id} value={coin.id}>{coin.name}</option>
                             ))}
                         </select>
-                    </div>
-                    <div className="selection-div">
+                    </motion.div>
+
+                    <motion.div
+                        className="selection-div"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.6, delay: 0.5 }}
+                    >
                         <select className="select" value={days} onChange={(e) => setDays(Number(e.target.value))}>
                             <option value="7">7 Day</option>
                             <option value="30">30 Day</option>
@@ -98,15 +129,24 @@ const CompareComponent = () => {
                             <option value="market_caps">Market Cap</option>
                             <option value="total_volumes">Total Volume</option>
                         </select>
-                    </div>
+                    </motion.div>
+
                     {coinOneData && coinTwoData ? (
-                        <Line data={chartData} />
+                        <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 1, delay: 0.6 }}
+                            whileHover={{ scale: 1.02, boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.3)" }}
+                        >
+                            <Line data={chartData} />
+                        </motion.div>
                     ) : (
                         <Loading />
                     )}
-                </div>
+                </motion.div>
             )}
-        </div>
+        </motion.div>
+
     );
 };
 

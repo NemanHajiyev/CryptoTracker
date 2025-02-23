@@ -1,19 +1,29 @@
 import React from 'react';
 import './style.css';
 import { useNavigate } from 'react-router-dom';
+import { motion } from "framer-motion";
+
 
 const ListCoin = ({ coins }) => {
     const navigate = useNavigate()
 
     return (
-        <div
-            className="coin-list">
+        <motion.div
+            className="coin-list"
+            initial={{ x: -200, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+        >
             <table>
                 <tbody>
-                    {coins.map(coin => (
-                        <tr
+                    {coins.map((coin, index) => (
+                        <motion.tr
+                            key={coin.id}
                             onClick={() => navigate(`/coin/${coin.id.toLowerCase()}`)}
-                            key={coin.id}>
+                            initial={{ x: -50, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                        >
                             <td className="coin-logo">
                                 <img src={coin.image} alt={coin.name} />
                             </td>
@@ -24,11 +34,11 @@ const ListCoin = ({ coins }) => {
                             <td className={`coin-change ${coin.market_cap_change_percentage_24h < 0 ? 'negative' : 'positive'}`}>
                                 {(coin.market_cap_change_percentage_24h).toFixed(2)}%
                             </td>
-                        </tr>
+                        </motion.tr>
                     ))}
                 </tbody>
             </table>
-        </div>
+        </motion.div>
     )
 }
 

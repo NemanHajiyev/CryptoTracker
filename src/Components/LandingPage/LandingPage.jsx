@@ -1,13 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../Common/Butoon/button';
 import './style.css';
 import iphone from '../../Assets/iphone.png';
 import gradient from '../../Assets/gradient.png';
 import { motion } from "framer-motion";
-import ToTop from '../BackToTop/ToTop';
+//
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal'
+import { FaCopy, FaFacebook, FaGithub, FaTwitter } from 'react-icons/fa';
+import { FaLinkedin } from 'react-icons/fa6';
 
 
 const LandingPage = () => {
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
+    const projectLink = "ProjectLink";
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(projectLink);
+        alert("Link Copied")
+    };
+
+    const style = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 350,
+        bgcolor: 'background.paper',
+        boxShadow: 24,
+        p: 4,
+    };
+
+
     return (
         <div className="main-flex">
             <div className="info-landing">
@@ -45,9 +73,30 @@ const LandingPage = () => {
                     <a href="/dashboard">
                         <Button text={"Dashboard"} />
                     </a>
-                    <a href="/dashboard">
-                        <Button text={"Share App"} outlined={true} />
-                    </a>
+
+                    <button className='btn-outlined ' onClick={handleOpen} >
+                        Share
+                    </button>
+                    <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+                        <Box sx={style} color={"black"}>
+
+                            <div className="share-link">
+                                <input type="text" value={projectLink} readOnly />
+                                <button onClick={copyToClipboard}><FaCopy size={25} color='var(--blue)' /></button>
+                            </div>
+                            <div className="social-icons">
+                                <a href="https://www.facebook.com/">
+                                    <FaFacebook size={45} />
+                                </a>
+                                <a href="https://github.com/NemanHajiyev">
+                                    <FaGithub size={45} />
+                                </a>
+                                <a href="https://www.linkedin.com/in/nemanhajiyev">
+                                    <FaLinkedin size={45} />
+                                </a>
+                            </div>
+                        </Box>
+                    </Modal>
                 </motion.div>
             </div>
             <div className="gradient-div">
