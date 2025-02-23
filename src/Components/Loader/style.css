@@ -7,8 +7,9 @@
     background-color: var(--black);
     position: fixed;
     z-index: 1000;
-    margin: 0 auto;
+    /* margin: 0 auto; */
     top: 10%;
+    right: 1.3%;
 }
 
 .chart-container {
@@ -18,5 +19,28 @@
     padding: 10px;
     background: var(--darkgrey);
     border-radius: 10px;
-    /* text-align: center; */
+}
+
+.select {
+    margin: 1rem 0;
+    border: 2px solid var(--blue);
+    padding: 0.6rem 2rem;
+    font-size: 1rem;
+    border-radius: 1rem;
+    outline: none;
+    cursor: pointer;
+    background-color: var(--darkgrey);
+    color: var(--white);
+    transition: all 0.4s;
+    font-weight: bold;
+}
+
+.select:hover {
+    background-color: var(--black);
+}
+
+.selection-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
