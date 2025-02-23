@@ -17,7 +17,7 @@ const LandingPage = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const projectLink = "ProjectLink";
+    const projectLink = "https://crypto-tracker-three-kappa.vercel.app";
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(projectLink);

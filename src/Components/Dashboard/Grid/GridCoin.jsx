@@ -8,10 +8,11 @@ import { useNavigate } from 'react-router-dom';
 const GridCoin = ({ coin }) => {
     const gridContainer = coin.market_cap_change_percentage_24h < 0 ? "grid-container" : "grid-container2";
     const navigate = useNavigate()
+    console.log(coin)
 
     return (
         <motion.div
-            onClick={() => navigate(`/coin/${coin.name.toLowerCase()}`)}
+            onClick={() => navigate(`/coin/${coin.id.toLowerCase()}`)}
             className={gridContainer}
             initial={{ opacity: 0, scale: 0.9, rotateX: 15 }}
             animate={{ opacity: 1, scale: 1, rotateX: 0 }}
