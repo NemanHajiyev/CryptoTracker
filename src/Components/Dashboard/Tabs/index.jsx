@@ -95,13 +95,27 @@ export default function LabTabs({ inputValue }) {
                                 )}
 
                             </div>
-                            <Stack spacing={2} alignItems="center" justifyContent="center">
+
+                            <Stack
+                                spacing={2}
+                                alignItems="center"
+                                justifyContent="center"
+                            >
                                 <Pagination
-                                    size='large'
+                                    size="large"
                                     count={pageCount}
                                     page={page}
                                     onChange={handlePageChange}
-                                    color="white"
+                                    sx={{
+                                        "& .MuiPaginationItem-root": {
+                                            color: "#333",
+                                            backgroundColor: "var(--darkgrey)",
+                                        },
+                                        "& .Mui-selected": {
+                                            backgroundColor: "#1976d2 !important",
+                                            color: "#fff !important",
+                                        },
+                                    }}
                                 />
                             </Stack>
                         </TabPanel>
@@ -118,8 +132,9 @@ export default function LabTabs({ inputValue }) {
                             </div>
                         </TabPanel>
                     </TabContext>
-                </Box>
-            )}
+                </Box >
+            )
+            }
             <ToTop />
         </>
     );

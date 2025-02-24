@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom';
 const GridCoin = ({ coin }) => {
     const gridContainer = coin.market_cap_change_percentage_24h < 0 ? "grid-container" : "grid-container2";
     const navigate = useNavigate()
-    console.log(coin)
 
     return (
         <motion.div
